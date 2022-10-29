@@ -4,14 +4,14 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgDeleteName } from "./types/nameservice/tx";
 import { MsgBuyName } from "./types/nameservice/tx";
+import { MsgDeleteName } from "./types/nameservice/tx";
 import { MsgSetName } from "./types/nameservice/tx";
 
 
 const types = [
-  ["/nameservice.nameservice.MsgDeleteName", MsgDeleteName],
   ["/nameservice.nameservice.MsgBuyName", MsgBuyName],
+  ["/nameservice.nameservice.MsgDeleteName", MsgDeleteName],
   ["/nameservice.nameservice.MsgSetName", MsgSetName],
   
 ];
@@ -45,8 +45,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgDeleteName: (data: MsgDeleteName): EncodeObject => ({ typeUrl: "/nameservice.nameservice.MsgDeleteName", value: MsgDeleteName.fromPartial( data ) }),
     msgBuyName: (data: MsgBuyName): EncodeObject => ({ typeUrl: "/nameservice.nameservice.MsgBuyName", value: MsgBuyName.fromPartial( data ) }),
+    msgDeleteName: (data: MsgDeleteName): EncodeObject => ({ typeUrl: "/nameservice.nameservice.MsgDeleteName", value: MsgDeleteName.fromPartial( data ) }),
     msgSetName: (data: MsgSetName): EncodeObject => ({ typeUrl: "/nameservice.nameservice.MsgSetName", value: MsgSetName.fromPartial( data ) }),
     
   };
